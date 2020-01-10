@@ -19,7 +19,6 @@ result_dir= './result/'
 # get train IDs
 train_fns = glob.glob(gt_dir + '0*.ARW')
 train_ids = [int(os.path.basename(train_fn)[0:5]) for train_fn in train_fns]
-train_ids = train_ids[0:5]
 
 ps = 512  # patch size for training
 save_freq = 2
@@ -74,6 +73,7 @@ for epoch in range(lastepoch, 2001):
     for ind in np.random.permutation(len(train_ids)):
         # get the path from image id
         train_id = train_ids[ind]
+        print(train_id)
         in_files = glob.glob(input_dir + '%05d_00*.ARW' % train_id)
         in_path = in_files[np.random.random_integers(0, len(in_files) - 1)]
         in_fn = os.path.basename(in_path)
