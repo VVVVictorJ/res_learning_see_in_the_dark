@@ -128,7 +128,9 @@ for epoch in range(lastepoch, 2001):
                 os.makedirs(result_dir + '%04d' % epoch)
 
             temp = np.concatenate((gt_patch[0, :, :, :], output[0, :, :, :]), axis=1)
-            scipy.misc.toimage(temp * 255, high=255, low=0, cmin=0, cmax=255).save(
+            # scipy.misc.toimage(temp * 255, high=255, low=0, cmin=0, cmax=255).save(
+            #     result_dir + '%04d/%05d_00_train_%d.jpg' % (epoch, train_id, ratio))
+            Image.fromarray((output * 255).astype(np.uint8)).save(
                 result_dir + '%04d/%05d_00_train_%d.jpg' % (epoch, train_id, ratio))
 
     saver.save(sess, checkpoint_dir + 'model.ckpt')
