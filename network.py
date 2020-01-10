@@ -46,14 +46,14 @@ def res_unet(input):
     s_conv1 = tf.nn.atrous_conv2d(net,filters=filter,rate=2,padding='SAME',name='sc1')
     #s_conv2 = tf.nn.atrous_conv2d(net,256,5,'same','sc2')
 
-    # for i in range(16):
-    #     temp = net
-    #     net = slim.conv2d(net, 512, [3,3], activation_fn=lrelu,normalizer_fn=layer_norm, scope='g_res%d_conv1'%i)
-    #     net = slim.conv2d(net, 512, [3,3], activation_fn=None,normalizer_fn=layer_norm, scope='g_res%d_conv2'%i)
-    #     net = net + temp
-    #
-    # net = slim.conv2d(net, 512, [3,3], activation_fn=None,normalizer_fn=layer_norm, scope='g_res')
-    # conv5 = net + conv5
+    for i in range(16):
+        temp = net
+        net = slim.conv2d(net, 512, [3,3], activation_fn=lrelu,normalizer_fn=layer_norm, scope='g_res%d_conv1'%i)
+        net = slim.conv2d(net, 512, [3,3], activation_fn=None,normalizer_fn=layer_norm, scope='g_res%d_conv2'%i)
+        net = net + temp
+
+    net = slim.conv2d(net, 512, [3,3], activation_fn=None,normalizer_fn=layer_norm, scope='g_res')
+    conv5 = net + conv5
     conv5 = tf.concat([s_conv1,conv5],3)
     #conv5 = tf.concat([s_conv2,conv5],3)
 

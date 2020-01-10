@@ -32,7 +32,7 @@ if not os.path.isdir(result_dir + 'final/'):
 in_path = 'D:/test/iphone/7p/frame_3/IMG_6395.DNG'
 
 in_fn = os.path.basename(in_path)
-ratio = 150
+ratio = 100
 
 raw = rawpy.imread(in_path)
 input_full = np.expand_dims(pack_raw(raw), axis=0) * ratio
